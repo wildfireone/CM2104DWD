@@ -6,11 +6,9 @@
  * @Last modified time: 11-Mar-182018
  */
  var http = require('http');
- var asciify = require('asciify');
+ var knockknock = require('knock-knock-jokes')
 
  http.createServer(function (req, res) {
      res.writeHead(200, {'Content-Type': 'text/html'});
-      asciify('Awesome',{font: 'larry3d', maxWidth: 7 }, function(err, textres){
-        res.end(textres);
-      });
+    res.end(knockknock());  
  }).listen(8080);
