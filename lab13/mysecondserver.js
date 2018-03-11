@@ -6,12 +6,10 @@
  * @Last modified time: 11-Mar-182018
  */
  var http = require('http');
+ var currentdate = require('./mymodule');
 
-var currentdate = require('./mymodule');
-
-
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write("The date and time are currently: " + currentdate.myDateTime());
-    res.end('Hello World');
-}).listen(8080);
+ http.createServer(function (req, res) {
+     res.writeHead(200, {'Content-Type': 'text/html'});
+     res.write("The date and time are currently: " + currentdate.myDateTime());
+     res.end('Hello World!');
+ }).listen(8080);
