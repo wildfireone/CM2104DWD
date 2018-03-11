@@ -10,7 +10,7 @@
 
  http.createServer(function (req, res) {
      res.writeHead(200, {'Content-Type': 'text/html'});
-      asciify('Awesome', function(err, textres){
+      asciify('Awesome',{font: 'larry3d', maxWidth: 90 }, function(err, textres){
         res.end(textres);
       });
  }).listen(8080);
