@@ -6,9 +6,10 @@
  * @Last modified time: 11-Mar-182018
  */
  var http = require('http');
- var knockknock = require('knock-knock-jokes')
+ var oneLinerJoke = require('one-liner-joke');
 
  http.createServer(function (req, res) {
      res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(knockknock());  
+    var randomJoke = oneLinerJoke.getRandomJoke();
+    res.end(randomJoke.body);
  }).listen(8080);
