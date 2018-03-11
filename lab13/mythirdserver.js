@@ -10,7 +10,7 @@
 
  http.createServer(function (req, res) {
      res.writeHead(200, {'Content-Type': 'text/html'});
-    asart.asciify('Hello World!', function(err, textres){ 
-      res.end(textres);
-  });
+      asciify('Awesome', function(err, textres){
+        res.end(textres);
+      });
  }).listen(8080);
