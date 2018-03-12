@@ -16,8 +16,10 @@ $(function() {
 
 function getTweets() {
   $.getJSON("/tweetsjson", function(data) {
-    console.log(data);
-
+    $('#tweetsdisplay').empty(); //clears the div
+    //display the last updated time.
+    $('#tweetsdisplay').append("<H3> Last Updated "+Date()+ " </h3>");
+    //for every tweet create a div and append to the page
     for (var t = 0; t < data.length; t++) {
       var tweetoutput = "<div>";
       tweetoutput += "<h2>" + data[t].name + "</h2>";
