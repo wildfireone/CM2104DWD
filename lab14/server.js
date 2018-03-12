@@ -23,11 +23,11 @@ var client = new Twitter({
    var params = {screen_name: 'nodejs'};
    client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    console.log(tweets);
+    res.send(tweets);
   }
 });
 
-    res.send("Hello world! by express");
+
  });
 
 app.listen(8080);
