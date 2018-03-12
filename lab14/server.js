@@ -5,9 +5,9 @@
  * @Last modified by:   john
  * @Last modified time: 12-Mar-182018
  */
- var express = require('express');
- var app = express();
- var Twitter = require('twitter');
+var express = require('express');
+var app = express();
+var Twitter = require('twitter');
 
 var client = new Twitter({
   consumer_key: 'vPuzIzncL5b5HyyUMp99kbMwv',
@@ -17,22 +17,29 @@ var client = new Twitter({
 });
 
 
- app.use(express.static('public'))
+app.use(express.static('public'))
 
- app.get('/', function(req, res){
-   var params = {screen_name: 'nodejs'};
-   client.get('statuses/user_timeline', params, function(error, tweets, response) {
-  if (!error) {
-    for(var t =0; t<tweets.length;t++){
-      console.log(tweets[t]);
-      res.send("<h2>"+tweets[t].user.screen_name+"<h2>");
-      res.send("<p>"+tweets[t].text+"</p>");
+app.get('/', function(req, res) {
+  var params = {
+    screen_name: 'nodejs'
+  };
+  client.get('statuses/user_timeline', params, function(error, tweets, response) {
+    if (!error) {
+      var output = "";
+      for (var t = 0; t < tweets.length; t++) {
+        output += "<div>";
+        output += "<h2>" + tweets[t].user.screen_name + "<h2>";
+        output += "<p>" + tweets[t].text + "</p>"
+        output += "</div>";
+
+
+      }
+      res.send(output);
+
     }
+  });
 
-  }
+
 });
-
-
- });
 
 app.listen(8080);
