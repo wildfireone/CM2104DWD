@@ -20,8 +20,8 @@ function getTweets() {
 
     for (var t = 0; t < data.length; t++) {
       var tweetoutput = "<div>";
-      tweetoutput += "<h2>" + data[i].name + "</h2>";
-      tweetoutput += "<p>" + data[i].text + "</p>";
+      tweetoutput += "<h2>" + data[t].name + "</h2>";
+      tweetoutput += "<p>" + data[t].text + "</p>";
       tweetoutput += "</div>";
       $('#tweetsdisplay').append(tweetoutput);
     }
