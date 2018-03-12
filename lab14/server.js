@@ -23,7 +23,11 @@ var client = new Twitter({
    var params = {screen_name: 'nodejs'};
    client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    res.send(tweets);
+    for(var tweet in tweets){
+      res.send("<h2>"+tweet.user.screen_name+"<h2>");
+      res.send("<p>"+tweet.text+"</p>");
+    }
+
   }
 });
 
