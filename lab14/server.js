@@ -24,6 +24,7 @@ var client = new Twitter({
    client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
     for(var tweet in tweets){
+      console.log(tweet)
       res.send("<h2>"+tweet.user.screen_name+"<h2>");
       res.send("<p>"+tweet.text+"</p>");
     }
