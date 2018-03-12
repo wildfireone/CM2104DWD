@@ -12,5 +12,13 @@
    $.getJSON( "/tweetsjson", function( data ) {
      console.log(data);
 
+     for(var t=0; t<data.length;t++){
+       var tweetoutput = "<div>";
+       tweetoutput +="<h2>"+data[i].name+"</h2>";
+       tweetoutput +="<p>"+data[i].text+"</p>";
+       tweetoutput +="</div>";
+       $('#tweetsdisplay').append(tweetoutput);
+     }
+
    });
  });
