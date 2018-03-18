@@ -22,6 +22,7 @@ MongoClient.connect(url, function(err, database) {
 
 app.get('/', function(req, res) {
   db.collection('quotes').find().toArray(function(err, result) {
+    if (err) throw err;
     var output = "";
     for (var i = 0; i < result.length; i++) {
       output += "<h2>" + result[i].name + "</h2>"
