@@ -21,7 +21,7 @@
 
 
  app.get('/', function(req, res){
-    db.collection('quotes'.find().toArray((err, result){
+    db.collection('quotes'.find().toArray(function(err, result){
       var output ="";
         for(var i=0; i<result.length;i++){
           output+="<h2>"+result[i].name+"</h2>"
