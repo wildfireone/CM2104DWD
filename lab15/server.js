@@ -25,7 +25,6 @@ MongoClient.connect(url, function(err, database) {
 
 
 app.get('/all', function(req, res) {
-  console.log(req);
   db.collection('quotes').find().toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
