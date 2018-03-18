@@ -11,9 +11,11 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/star_wars_quotes";
 const express = require('express');
+const bodyparser = require('body-parser')
 const app = express();
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}))
+
 var db;
 
 MongoClient.connect(url, function(err, database) {
@@ -41,7 +43,6 @@ app.get('/all', function(req, res) {
 });
 
 app.post('/quotes', function (req, res) {
-  console.log(req.body);
   db.collection('quotes').save(req.body, function(err, result) {
     if (err) throw err;
     console.log('saved to database')
