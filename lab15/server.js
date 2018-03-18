@@ -29,7 +29,7 @@ app.get('/all', function(req, res) {
   db.collection('quotes').find().toArray(function(err, result) {
     if (err) throw err;
     console.log(results);
-    var output = "";
+    var output = "<h1>All the quotes</h1>";
     for (var i = 0; i < result.length; i++) {
       output += "<h2>" + result[i].name + "</h2>"
       output += "<p>" + result[i].quote + "<p>"
