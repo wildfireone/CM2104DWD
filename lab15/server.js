@@ -30,8 +30,10 @@ app.get('/all', function(req, res) {
     console.log(result);
     var output = "<h1>All the quotes</h1>";
     for (var i = 0; i < result.length; i++) {
+      output += "<div>"
       output += "<h2>" + result[i].name + "</h2>"
-      output += "<p>" + result[i].quote + "<p>"
+      output += "<p>" + result[i].quote + "</p>"
+      output += "</div>"
     }
     res.send(output);
   });
