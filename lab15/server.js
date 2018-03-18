@@ -16,13 +16,14 @@ MongoClient.connect(url, function(err, database) {
   if (err) throw err;
   db = database;
   app.listen(8080);
-  console.log(listening);
+  console.log('listening');
 });
 
 
 
 app.get('/', function(req, res) {
-  db.collection('quotes').find().toArray(function(err, result) {
+  console.log('req');
+  db.collection('quotes').find({}).toArray(function(err, result) {
     if (err) throw err;
     var output = "";
     for (var i = 0; i < result.length; i++) {
