@@ -13,7 +13,7 @@ const url = "mongodb://localhost:27017/star_wars_quotes";
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}))
 var db;
 
 MongoClient.connect(url, function(err, database) {
