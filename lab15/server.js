@@ -38,3 +38,11 @@ app.get('/all', function(req, res) {
     res.send(output);
   });
 });
+
+app.post('/quotes', (req, res) {
+  db.collection('quotes').save(req.body, function(err, result) {
+    if (err) throw err;
+    console.log('saved to database')
+    res.redirect('/')
+  })
+})
