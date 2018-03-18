@@ -40,6 +40,7 @@ app.get('/all', function(req, res) {
 });
 
 app.post('/quotes', function (req, res) {
+  console.log(req.body);
   db.collection('quotes').save(req.body, function(err, result) {
     if (err) throw err;
     console.log('saved to database')
