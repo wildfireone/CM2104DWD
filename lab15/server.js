@@ -3,7 +3,7 @@
  * @Date:   18-Mar-182018
  * @Filename: server.js
  * @Last modified by:   john
- * @Last modified time: 18-Mar-182018
+ * @Last modified time: 19-Mar-182018
  */
 
 
@@ -33,7 +33,7 @@ app.get('/all', function(req, res) {
     console.log(result);
     var output = "<h1>All the quotes</h1>";
     for (var i = 0; i < result.length; i++) {
-      output += "<div>"
+      output += "<div border:1px dotted black>"
       output += "<h3>" + result[i].name + "</h3>"
       output += "<p>" + result[i].quote + "</p>"
       output += "</div>"
