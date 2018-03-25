@@ -2,17 +2,16 @@
 <html>
 
 <head>
-  <title>Filter Quotes Form</title>
+  <title>Add Quotes Form</title>
 </head>
 
-<body>
-
-
+<body class="container">
   <main>
     <div class="jumbotron">
-      <h1>search for quotes by!</h1>
-      <form action="/search" method="POST">
+      <h1>Add some quotes!</h1>
+      <form action="/quotes" method="POST">
         <input type="text" placeholder="name" name="name">
+        <input type="text" placeholder="quote" name="quote">
         <button type="submit">Submit</button>
       </form>
     </div>

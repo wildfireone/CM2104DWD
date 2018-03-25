@@ -14,8 +14,10 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
-app.use(express.static('public'));
+
 app.use(bodyParser.urlencoded({extended: true}))
+// set the view engine to ejs
+app.set('view engine', 'ejs');
 
 var db;
 
@@ -26,9 +28,25 @@ MongoClient.connect(url, function(err, database) {
   console.log('listening');
 });
 
+app.get('/', function(req,res) {
+  res.render('pages/index')
+});
+app.get('/add', function(req,res) {
+res.render('pages/add')
+});
+app.get('/delete', function(req,res) {
+res.render('pages/delete')
+});
+app.get('/filter', function(req,res) {
+res.render('pages/filter')
+});
+app.get('/update', function(req,res) {
+res.render('pages/update')
+});
 
 
-app.get('/all', function(req, res) {
+
+app.get('/allquotes', function(req, res) {
   db.collection('quotes').find().toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
