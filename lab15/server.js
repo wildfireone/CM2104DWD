@@ -3,7 +3,7 @@
  * @Date:   18-Mar-182018
  * @Filename: server.js
  * @Last modified by:   john
- * @Last modified time: 19-Mar-182018
+ * @Last modified time: 25-Mar-182018
  */
 
 
@@ -30,7 +30,15 @@ MongoClient.connect(url, function(err, database) {
 app.get('/all', function(req, res) {
   db.collection('quotes').find().toArray(function(err, result) {
     if (err) throw err;
-    res.render('index', { quotesarray: result });
+    console.log(result);
+    var output = "<h1>All the quotes</h1>";
+    for (var i = 0; i < result.length; i++) {
+      output += "<div>"
+      output += "<h3>" + result[i].name + "</h3>"
+      output += "<p>" + result[i].quote + "</p>"
+      output += "</div>"
+    }
+    res.send(output);
   });
 });
 
