@@ -75,6 +75,7 @@ app.get('/remuser', function(req, res) {
 
 
 app.post('/dologin', function(req, res) {
+  console.log(JSON.stringify(req.body))
   var uname = req.body.username;
   var pword = req.body.password;
 
