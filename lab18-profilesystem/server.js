@@ -38,7 +38,7 @@ app.get('/', function(req,res) {
 
 app.get('/student', function(req,res) {
 //get the requested student from the request e.g /students?id=4
-var studentID = req.body.id;
+var studentID = req.query.id;
 db.collection('students').find({"_id":studentID}).toArray(function(err, result) {
   if (err) throw err;
   console.log(studentID+":"+result);
