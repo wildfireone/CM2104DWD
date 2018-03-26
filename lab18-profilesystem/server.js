@@ -32,7 +32,7 @@ app.get('/', function(req,res) {
   db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
-    res.render('pages/users', {students:result})
+    res.render('pages/users', {users:result})
   });
 });
 
@@ -42,7 +42,7 @@ var userID = req.query.id;
 db.collection('people').findOne({_id:userID},function(err, result) {
   if (err) throw err;
   console.log(userID+":"+result);
-  res.render('pages/student', {student:result})
+  res.render('pages/student', {user:result})
 });
 
 });
