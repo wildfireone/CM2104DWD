@@ -32,7 +32,7 @@ MongoClient.connect(url, function(err, database) {
 });
 
 app.get('/', function(req, res) {
-  if(!loggedin){res.redirect('/login');break;}
+  if(!loggedin){res.redirect('/login');return;}
   db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
     //console.log(result);
