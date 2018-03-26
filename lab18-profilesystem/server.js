@@ -33,6 +33,7 @@ MongoClient.connect(url, function(err, database) {
 
 app.get('/', function(req, res) {
   if(!loggedin){res.redirect('/login');return;}
+  
   db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
     //console.log(result);
@@ -44,15 +45,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-  var uname = req.body.username;
-  var pword = req.body.password;
+  res.render('pages/login');
+}
 
-  db.collection('people').findOne({"login.username":uname}, function(err, result) {
-    if (err) throw err;
-    if(result.body.password == pword){ loggedin = true; res.redirect('/') }
-    else{res.redirect('/login')}
-  });
-});
 
 app.get('/profile', function(req, res) {
   if(!loggedin){res.redirect('/login')};
@@ -76,6 +71,18 @@ app.get('/adduser', function(req, res) {
 app.get('/remuser', function(req, res) {
   if(!loggedin){res.redirect('/login')};
   res.render('pages/remuser')
+});
+
+
+app.post('/dologin', function(req, res) {
+  var uname = req.body.username;
+  var pword = req.body.password;
+
+  db.collection('people').findOne({"login.username":uname}, function(err, result) {
+    if (err) throw err;
+    if(req.body.password == pword){ loggedin = true; res.redirect('/') }
+    else{res.redirect('/login')}
+  });
 });
 
 
