@@ -42,7 +42,7 @@ var userID = req.query.id;
 db.collection('people').findOne({_id:userID},function(err, result) {
   if (err) throw err;
   console.log(userID+":"+result);
-  res.render('pages/student', {user:result})
+  res.render('pages/profile', {user:result})
 });
 
 });
