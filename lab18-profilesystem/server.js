@@ -121,7 +121,7 @@ app.post('/delete', function(req, res) {
   var uname = req.body.username;
 
   //check for the username added in the form, if one exists then you can delete that doccument
-  db.collection('people').deleteOne({"login.username":username}, function(err, result) {
+  db.collection('people').deleteOne({"login.username":uname}, function(err, result) {
     if (err) throw err;
     //when complete redirect to the index
     res.redirect('/');
