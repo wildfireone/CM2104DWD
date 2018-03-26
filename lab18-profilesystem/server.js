@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({
 app.set('view engine', 'ejs');
 
 var db;
+var loggedin = false;
 
 MongoClient.connect(url, function(err, database) {
   if (err) throw err;
@@ -31,6 +32,7 @@ MongoClient.connect(url, function(err, database) {
 });
 
 app.get('/', function(req, res) {
+  if(!loggedin){res.redirect('/login')};
   db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
     //console.log(result);
@@ -40,7 +42,19 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/login', function(req, res) {
+  var uname = req.body.username;
+  var pword = req.body.password;
+
+  db.collection('people').findOne({"login.username":uname}, function(err, result) {
+    if (err) throw err;
+    if(result.login.password == pword){ loggedin = true; res.redirect('/') }
+    else{res.redirect('/login')}
+  });
+});
+
 app.get('/profile', function(req, res) {
+  if(!loggedin){res.redirect('/login')};
   //get the requested student from the request e.g /students?id=4
   var uname = req.query.username;
   db.collection('people').findOne({
@@ -55,14 +69,17 @@ app.get('/profile', function(req, res) {
 
 });
 app.get('/adduser', function(req, res) {
+  if(!loggedin){res.redirect('/login')};
   res.render('pages/adduser')
 });
 app.get('/remuser', function(req, res) {
+  if(!loggedin){res.redirect('/login')};
   res.render('pages/remuser')
 });
 
 
 app.post('/delete', function(req, res) {
+  if(!loggedin){res.redirect('/login')};
   db.collection('quotes').deleteOne(req.body, function(err, result) {
     if (err) throw err;
     res.redirect('/');
@@ -70,6 +87,7 @@ app.post('/delete', function(req, res) {
 });
 
 app.post('/update', function(req, res) {
+  if(!loggedin){res.redirect('/login')};
   var query = {
     quote: req.body.quote
   };
