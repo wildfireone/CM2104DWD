@@ -42,9 +42,9 @@ app.get('/', function(req, res) {
 
 app.get('/profile', function(req, res) {
   //get the requested student from the request e.g /students?id=4
-  var userID = req.query.id;
+  var username = req.query.username;
   db.collection('people').findOne({
-    _id: userID
+    _id: ObjectIDuserID
   }, function(err, result) {
     if (err) throw err;
     console.log(userID + ":" + result);

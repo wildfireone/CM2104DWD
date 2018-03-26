@@ -19,7 +19,7 @@
           <ul>
             <% users.forEach(function(user) { %>
               <li>
-                <a href="/profile?id=<%= user._id %>"> <%= user.name.title+" "+user.name.first+" "+ user.name.last %> </a>
+                <a href="/profile?username=<%= user.login.username %>"> <%= user.name.title+" "+user.name.first+" "+ user.name.last %> </a>
               </li>
             <% }); %>
           </ul>
