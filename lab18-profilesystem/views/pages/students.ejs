@@ -19,7 +19,7 @@
           <ul>
             <% students.forEach(function(student) { %>
               <li>
-                <a href="/students?id=<%= student.id %>"> <%= student.username %> </a>
+                <a href="/students?id=<%= student._id %>"> <%= student.name %> </a>
               </li>
             <% }); %>
           </ul>
