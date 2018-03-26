@@ -49,7 +49,7 @@ app.get('/profile', function(req, res) {
     }
   }, function(err, result) {
     if (err) throw err;
-    console.log(userID + ":" + result);
+    console.log(username+ ":" + result);
     res.render('pages/profile', {
       user: result
     })
