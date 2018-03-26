@@ -14,15 +14,16 @@
   <main>
     <div class="jumbotron">
 
-      <h2>Quotes!</h2>
-      <ul>
-        <% students.forEach(function(student) { %>
-          <li>
-            <%= student.name %> -
-            <%= drink.drunkness %>
-          </li>
-        <% }); %>
-      </ul>
+      <h2>All Students</h2>
+
+          <ul>
+            <% students.forEach(function(student) { %>
+              <li>
+                <a href="/students?id=<%= student.id %>"> <%= student.username %> </a>
+              </li>
+            <% }); %>
+          </ul>
+
 
     </div>
   </main>
