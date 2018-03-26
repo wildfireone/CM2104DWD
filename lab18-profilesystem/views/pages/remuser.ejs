@@ -14,16 +14,11 @@
   <main>
     <div class="jumbotron">
 
-      <h2>All Students</h2>
-
-          <ul>
-            <% users.forEach(function(user) { %>
-              <li>
-                <a href="/profile?username=<%= user.login.username %>"> <%= user.name.title+" "+user.name.first+" "+ user.name.last %> </a>
-              </li>
-            <% }); %>
-          </ul>
-
+      <h1>Delete a User</h1>
+      <form action="/delete" method="POST">
+        <input type="text" placeholder="username" name="username">
+        <button type="submit">Submit</button>
+      </form>
 
     </div>
   </main>

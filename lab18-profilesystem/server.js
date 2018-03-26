@@ -8,11 +8,11 @@
 
 
 
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient; //npm install mongodb@2.2.32
 const url = "mongodb://localhost:27017/profiles";
-const express = require('express');
-const session = require('express-session');
-const bodyParser = require('body-parser')
+const express = require('express'); //npm install express
+const session = require('express-session'); //npm install express-session
+const bodyParser = require('body-parser'); //npm install body-parser
 const app = express();
 
 //this tells express we are using sesssions. These are variables that only belong to one user of the site at a time.
@@ -39,7 +39,7 @@ MongoClient.connect(url, function(err, database) {
 //this is our root route
 app.get('/', function(req, res) {
   //if the user is not logged in redirect them to the login page
-  if(!req.session.authenticated){res.redirect('/login');return;}
+  if(!req.session.loggedin){res.redirect('/login');return;}
 
   //otherwise perfrom a search to return all the documents in the people collection
   db.collection('people').find().toArray(function(err, result) {
@@ -59,7 +59,7 @@ app.get('/login', function(req, res) {
 
 //this is our profile route, it takes in a username and uses that to search the database for a specific user
 app.get('/profile', function(req, res) {
-  if(!req.session.authenticated){res.redirect('/login');return;}
+  if(!req.session.loggedin){res.redirect('/login');return;}
   //get the requested user based on their username, eg /profile?username=dioreticllama
   var uname = req.query.username;
   //this query finds the first document in the array with that username.
@@ -69,27 +69,34 @@ app.get('/profile', function(req, res) {
   }, function(err, result) {
     if (err) throw err;
     //console.log(uname+ ":" + result);
-
+    //finally we just send the result to the user page as "user"
     res.render('pages/profile', {
       user: result
     })
   });
 
 });
+//adduser route simply draws our adduser page
 app.get('/adduser', function(req, res) {
-  if(!req.session.authenticated){res.redirect('/login');return;}
+  if(!req.session.loggedin){res.redirect('/login');return;}
   res.render('pages/adduser')
 });
+//remuser route simply draws our remuser page
 app.get('/remuser', function(req, res) {
-  if(!req.session.authenticated){res.redirect('/login');return;}
+  if(!req.session.loggedin){res.redirect('/login');return;}
   res.render('pages/remuser')
 });
+//logour route cause the page to Logout.
+//it sets our session.loggedin to false and then redirects the user to the login
 app.get('/logout', function(req, res) {
-  req.session.authenticated = true;
+  req.session.loggedin = true;
   res.redirect('/');
 });
 
 
+
+//the dologin route detasl with the data from the login screen.
+//the post variables, username and password ceom from the form on the login page.
 app.post('/dologin', function(req, res) {
   console.log(JSON.stringify(req.body))
   var uname = req.body.username;
@@ -99,35 +106,38 @@ app.post('/dologin', function(req, res) {
     if (err) throw err;//if there is an error, throw the error
     //if there is no result, redirect the user back to the login system as that username must not exist
     if(!result){res.redirect('/login');return}
-    //if there is a result then check the password, if the password is correct set session authenticated to true and send the user to the index
-    if(result.login.password == pword){ req.session.authenticated = true; res.redirect('/') }
+    //if there is a result then check the password, if the password is correct set session loggedin to true and send the user to the index
+    if(result.login.password == pword){ req.session.loggedin = true; res.redirect('/') }
     //otherwise send them back to login
     else{res.redirect('/login')}
   });
 });
 
-
+//the delete route deals with user deletion based on entering a username
 app.post('/delete', function(req, res) {
-  if(!req.session.authenticated){res.redirect('/login');return;}
-  db.collection('quotes').deleteOne(req.body, function(err, result) {
+  //check we are logged in.
+  if(!req.session.loggedin){res.redirect('/login');return;}
+  //if so get the username variable
+  var uname = req.body.username;
+
+  //check for the username added in the form, if one exists then you can delete that doccument
+  db.collection('people').deleteOne({"login.username":username}, function(err, result) {
     if (err) throw err;
+    //when complete redirect to the index
     res.redirect('/');
   });
 });
 
-app.post('/update', function(req, res) {
-  if(!req.session.authenticated){res.redirect('/login');return;}
-  var query = {
-    quote: req.body.quote
-  };
-  var newvalues = {
-    $set: {
-      name: req.body.newname,
-      quote: req.body.newquote
-    }
-  };
-  db.collection('quotes').updateOne(query, newvalues, function(err, result) {
+//the adduser route deals with adding a new user
+app.post('/adduser', function(req, res) {
+  //check we are logged in
+  if(!req.session.loggedin){res.redirect('/login');return;}
+  //if we are simply add the request-body to the database. The reqest-body
+  //will be the content of the form from the adduser.ejs page
+  db.collection('quotes').save(req.body, function(err, result) {
     if (err) throw err;
-    res.redirect('/');
-  });
+    console.log('saved to database')
+    //when complete redirect to the index
+    res.redirect('/')
+  })
 });
