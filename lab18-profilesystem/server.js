@@ -33,6 +33,7 @@ MongoClient.connect(url, function(err, database) {
 
 app.get('/', function(req, res) {
   if(!loggedin){res.redirect('/login')};
+  else{
   db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
     //console.log(result);
@@ -40,6 +41,7 @@ app.get('/', function(req, res) {
       users: result
     })
   });
+}
 });
 
 app.get('/login', function(req, res) {
