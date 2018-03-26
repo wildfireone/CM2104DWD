@@ -15,7 +15,9 @@ const bodyParser = require('body-parser')
 const app = express();
 
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 
@@ -28,29 +30,35 @@ MongoClient.connect(url, function(err, database) {
   console.log('listening');
 });
 
-app.get('/', function(req,res) {
+app.get('/', function(req, res) {
   db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
-    console.log(result);
-    res.render('pages/users', {users:result})
+    //console.log(result);
+    res.render('pages/users', {
+      users: result
+    })
   });
 });
 
-app.get('/profile', function(req,res) {
-//get the requested student from the request e.g /students?id=4
-var userID = req.query.id;
-db.collection('people').findOne({_id:userID},function(err, result) {
-  if (err) throw err;
-  console.log(userID+":"+result);
-  res.render('pages/profile', {user:result})
-});
+app.get('/profile', function(req, res) {
+  //get the requested student from the request e.g /students?id=4
+  var userID = req.query.id;
+  db.collection('people').findOne({
+    _id: userID
+  }, function(err, result) {
+    if (err) throw err;
+    console.log(userID + ":" + result);
+    res.render('pages/profile', {
+      user: result
+    })
+  });
 
 });
-app.get('/delete', function(req,res) {
-res.render('pages/delete')
+app.get('/delete', function(req, res) {
+  res.render('pages/delete')
 });
-app.get('/update', function(req,res) {
-res.render('pages/update')
+app.get('/update', function(req, res) {
+  res.render('pages/update')
 });
 
 
@@ -70,7 +78,7 @@ app.get('/allquotes', function(req, res) {
   });
 });
 
-app.post('/quotes', function (req, res) {
+app.post('/quotes', function(req, res) {
   db.collection('quotes').save(req.body, function(err, result) {
     if (err) throw err;
     console.log('saved to database')
@@ -82,7 +90,7 @@ app.post('/search', function(req, res) {
   db.collection('quotes').find(req.body).toArray(function(err, result) {
     if (err) throw err;
 
-    var output = "<h1>quotes by" +req.body.name+ "</h1>";
+    var output = "<h1>quotes by" + req.body.name + "</h1>";
 
     for (var i = 0; i < result.length; i++) {
       output += "<div>"
@@ -102,9 +110,16 @@ app.post('/delete', function(req, res) {
 });
 
 app.post('/update', function(req, res) {
-  var query = { quote: req.body.quote };
-  var newvalues = { $set: {name: req.body.newname, quote: req.body.newquote } };
-  db.collection('quotes').updateOne(query,newvalues, function(err, result) {
+  var query = {
+    quote: req.body.quote
+  };
+  var newvalues = {
+    $set: {
+      name: req.body.newname,
+      quote: req.body.newquote
+    }
+  };
+  db.collection('quotes').updateOne(query, newvalues, function(err, result) {
     if (err) throw err;
     res.redirect('/');
   });
