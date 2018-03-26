@@ -29,19 +29,19 @@ MongoClient.connect(url, function(err, database) {
 });
 
 app.get('/', function(req,res) {
-  db.collection('students').find().toArray(function(err, result) {
+  db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
-    res.render('pages/students', {students:result})
+    res.render('pages/users', {students:result})
   });
 });
 
-app.get('/student', function(req,res) {
+app.get('/profile', function(req,res) {
 //get the requested student from the request e.g /students?id=4
-var studentID = req.query.id;
-db.collection('students').findOne({_id:3},function(err, result) {
+var userID = req.query.id;
+db.collection('people').findOne({_id:userID},function(err, result) {
   if (err) throw err;
-  console.log(studentID+":"+result);
+  console.log(userID+":"+result);
   res.render('pages/student', {student:result})
 });
 

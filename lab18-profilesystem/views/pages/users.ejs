@@ -17,9 +17,9 @@
       <h2>All Students</h2>
 
           <ul>
-            <% students.forEach(function(student) { %>
+            <% users.forEach(function(user) { %>
               <li>
-                <a href="/student?id=<%= student._id %>"> <%= student.name %> </a>
+                <a href="/profile?id=<%= user._id %>"> <%= user.name %> </a>
               </li>
             <% }); %>
           </ul>
