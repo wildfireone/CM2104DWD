@@ -41,7 +41,7 @@ app.get('/student', function(req,res) {
 var studentID = req.query.id;
 db.collection('students').find({_id:3}).toArray(function(err, result) {
   if (err) throw err;
-  console.log(studentID+":"+result);
+  console.log(studentID+":"+JSON.stringify(result));
   res.render('pages/student', {student:result})
 });
 
