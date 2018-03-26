@@ -50,7 +50,7 @@ app.get('/login', function(req, res) {
 
 
 app.get('/profile', function(req, res) {
-  if(!loggedin){res.redirect('/login')};
+  if(!loggedin){res.redirect('/login');return;}
   //get the requested student from the request e.g /students?id=4
   var uname = req.query.username;
   db.collection('people').findOne({
@@ -65,12 +65,16 @@ app.get('/profile', function(req, res) {
 
 });
 app.get('/adduser', function(req, res) {
-  if(!loggedin){res.redirect('/login')};
+  if(!loggedin){res.redirect('/login');return;}
   res.render('pages/adduser')
 });
 app.get('/remuser', function(req, res) {
-  if(!loggedin){res.redirect('/login')};
+  if(!loggedin){res.redirect('/login');return;}
   res.render('pages/remuser')
+});
+app.get('/logout', function(req, res) {
+  loggedin = false;
+  res.redirect('/');
 });
 
 
@@ -92,7 +96,7 @@ app.post('/dologin', function(req, res) {
 
 
 app.post('/delete', function(req, res) {
-  if(!loggedin){res.redirect('/login')};
+  if(!loggedin){res.redirect('/login');return;}
   db.collection('quotes').deleteOne(req.body, function(err, result) {
     if (err) throw err;
     res.redirect('/');
@@ -100,7 +104,7 @@ app.post('/delete', function(req, res) {
 });
 
 app.post('/update', function(req, res) {
-  if(!loggedin){res.redirect('/login')};
+  if(!loggedin){res.redirect('/login');return;}
   var query = {
     quote: req.body.quote
   };
