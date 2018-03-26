@@ -32,8 +32,7 @@ MongoClient.connect(url, function(err, database) {
 });
 
 app.get('/', function(req, res) {
-  if(!loggedin){res.redirect('/login')}
-  else{
+  if(!loggedin){res.redirect('/login');break;}
   db.collection('people').find().toArray(function(err, result) {
     if (err) throw err;
     //console.log(result);
@@ -41,7 +40,7 @@ app.get('/', function(req, res) {
       users: result
     })
   });
-}
+
 });
 
 app.get('/login', function(req, res) {
@@ -50,7 +49,7 @@ app.get('/login', function(req, res) {
 
   db.collection('people').findOne({"login.username":uname}, function(err, result) {
     if (err) throw err;
-    if(result.login.password == pword){ loggedin = true; res.redirect('/') }
+    if(result.body.password == pword){ loggedin = true; res.redirect('/') }
     else{res.redirect('/login')}
   });
 });
