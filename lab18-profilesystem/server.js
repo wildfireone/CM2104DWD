@@ -3,7 +3,7 @@
  * @Date:   18-Mar-182018
  * @Filename: server.js
  * @Last modified by:   john
- * @Last modified time: 25-Mar-182018
+ * @Last modified time: 26-Mar-182018
  */
 
 
@@ -31,7 +31,7 @@ MongoClient.connect(url, function(err, database) {
 app.get('/', function(req,res) {
   db.collection('students').find().toArray(function(err, result) {
     if (err) throw err;
-    res.render('pages/students' {students:result})
+    res.render('pages/students', {students:result})
   });
 });
 
@@ -40,7 +40,7 @@ app.get('/student', function(req,res) {
 var studentID = req.body.id;
 db.collection('students').find({_id:studentID}).toArray(function(err, result) {
   if (err) throw err;
-  res.render('pages/student' {student:result})
+  res.render('pages/student', {student:result})
 });
 
 });
