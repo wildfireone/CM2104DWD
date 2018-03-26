@@ -44,7 +44,9 @@ app.get('/profile', function(req, res) {
   //get the requested student from the request e.g /students?id=4
   var username = req.query.username;
   db.collection('people').findOne({
-    login.username: username 
+    login {
+      username: username
+    }
   }, function(err, result) {
     if (err) throw err;
     console.log(userID + ":" + result);
