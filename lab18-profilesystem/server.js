@@ -58,7 +58,7 @@ app.get('/login', function(req, res) {
 
 //this is our profile route, it takes in a username and uses that to search the database for a specific user
 app.get('/profile', function(req, res) {
-  if(!req.session.authenticated = true;){res.redirect('/login');return;}
+  if(!req.session.authenticated){res.redirect('/login');return;}
   //get the requested user based on their username, eg /profile?username=dioreticllama
   var uname = req.query.username;
   //this query finds the first document in the array with that username.
