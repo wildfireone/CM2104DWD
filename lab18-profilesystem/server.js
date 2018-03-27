@@ -143,7 +143,7 @@ var datatostore = {"gender":req.body.gender,"name":{"title":req.body.title,"firs
 
 
 
-  db.collection('quotes').save(datastore, function(err, result) {
+  db.collection('quotes').save(datatostore, function(err, result) {
     if (err) throw err;
     console.log('saved to database')
     //when complete redirect to the index
