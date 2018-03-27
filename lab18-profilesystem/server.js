@@ -132,14 +132,31 @@ app.post('/delete', function(req, res) {
 
 //the adduser route deals with adding a new user
 //dataformat for storing new users.
-//{"_id":18,"gender":"female","name":{"title":"miss","first":"allie","last":"austin"},"location":{"street":"9348 high street","city":"canterbury","state":"leicestershire","postcode":"N7N 1WE"},"email":"allie.austin@example.com","login":{"username":"smalldog110","password":"lickit","salt":"8HGJwCbZ","md5":"5fa7e5680888496ab789a622f7d43779","sha1":"f82dd6f1774a180c91ac3a1352b6d0a7b4306dea","sha256":"98e8f73932af88201e5c35bb287646d34f19b402a001d11b1ca8d66553f90def"},"dob":"1970-07-06 16:32:37","registered":"2011-02-08 07:10:24","picture":{"large":"https://randomuser.me/api/portraits/women/42.jpg","medium":"https://randomuser.me/api/portraits/med/women/42.jpg","thumbnail":"https://randomuser.me/api/portraits/thumb/women/42.jpg"},"nat":"GB"}
+//{"_id":18,
+//"gender":"female",
+//"name":{"title":"miss","first":"allie","last":"austin"},
+//"location":{"street":"9348 high street","city":"canterbury","state":"leicestershire","postcode":"N7N 1WE"},
+//"email":"allie.austin@example.com",
+//"login":{"username":"smalldog110","password":"lickit"},
+//"dob":"1970-07-06 16:32:37","registered":"2011-02-08 07:10:24",
+//"picture":{"large":"https://randomuser.me/api/portraits/women/42.jpg","medium":"https://randomuser.me/api/portraits/med/women/42.jpg","thumbnail":"https://randomuser.me/api/portraits/thumb/women/42.jpg"},
+//"nat":"GB"}
 
 app.post('/adduser', function(req, res) {
   //check we are logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
+  
   //we create the data string from the form components that have been passed in
 
-var datatostore = {"gender":req.body.gender,"name":{"title":req.body.title,"first":req.body.first,"last":req.body.last},"location":{"street":req.body.street,"city":req.body.city,"state":req.body.state,"postcode":req.body.postcode},"email":req.body.email,"login":{"username":req.body.username,"password":req.body.password},"dob":req.body.dob,"registered":Date(),"picture":{"large":req.body.large,"medium":req.body.medium,"thumbnail":req.body.thumbnail},"nat":req.body.nat}
+var datatostore = {
+"gender":req.body.gender,
+"name":{"title":req.body.title,"first":req.body.first,"last":req.body.last},
+"location":{"street":req.body.street,"city":req.body.city,"state":req.body.state,"postcode":req.body.postcode},
+"email":req.body.email,
+"login":{"username":req.body.username,"password":req.body.password},
+"dob":req.body.dob,"registered":Date(),
+"picture":{"large":req.body.large,"medium":req.body.medium,"thumbnail":req.body.thumbnail},
+"nat":req.body.nat}
 
 
 //once created we just run the data string against the database and all our new data will be saved/
