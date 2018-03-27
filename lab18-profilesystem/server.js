@@ -36,6 +36,8 @@ MongoClient.connect(url, function(err, database) {
 });
 
 
+//********** GET ROUTES - Deal with displaying pages ***************************
+
 //this is our root route
 app.get('/', function(req, res) {
   //if the user is not logged in redirect them to the login page
@@ -96,6 +98,10 @@ app.get('/logout', function(req, res) {
 
 
 
+
+//********** POST ROUTES - Deal with processing data from forms ***************************
+
+
 //the dologin route detasl with the data from the login screen.
 //the post variables, username and password ceom from the form on the login page.
 app.post('/dologin', function(req, res) {
@@ -132,6 +138,7 @@ app.post('/delete', function(req, res) {
 
 //the adduser route deals with adding a new user
 //dataformat for storing new users.
+
 //{"_id":18,
 //"gender":"female",
 //"name":{"title":"miss","first":"allie","last":"austin"},
@@ -145,7 +152,7 @@ app.post('/delete', function(req, res) {
 app.post('/adduser', function(req, res) {
   //check we are logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
-  
+
   //we create the data string from the form components that have been passed in
 
 var datatostore = {
