@@ -136,14 +136,13 @@ app.post('/delete', function(req, res) {
 app.post('/adduser', function(req, res) {
   //check we are logged in
   if(!req.session.loggedin){res.redirect('/login');return;}
-  //if we are simply add the request-body to the database. The reqest-body
-  //will be the content of the form from the adduser.ejs page
+  //we create the data string from the form components that have been passed in
 
 var datatostore = {"gender":req.body.gender,"name":{"title":req.body.title,"first":req.body.first,"last":req.body.last},"location":{"street":req.body.street,"city":req.body.city,"state":req.body.state,"postcode":req.body.postcode},"email":req.body.email,"login":{"username":req.body.username,"password":req.body.password},"dob":req.body.dob,"registered":Date(),"picture":{"large":req.body.large,"medium":req.body.medium,"thumbnail":req.body.thumbnail},"nat":req.body.nat}
 
 
-
-  db.collection('quotes').save(datatostore, function(err, result) {
+//once created we just run the data string against the database and all our new data will be saved/
+  db.collection('people').save(datatostore, function(err, result) {
     if (err) throw err;
     console.log('saved to database')
     //when complete redirect to the index
